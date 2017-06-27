@@ -1,6 +1,6 @@
 FROM arangodb:latest
 
-RUN apt-get install zip -y
+RUN apt-get update && apt-get install zip -y
 
 WORKDIR /build
 COPY build /build/ 
