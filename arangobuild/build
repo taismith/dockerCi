@@ -1,0 +1,5 @@
+#!/bin/bash
+
+zip -rq arangodbconfig.zip ./
+foxx-manager --server.endpoint tcp://${domainname} --server.database {databasename} --server.authentication false upgrade arangodbconfig.zip /${servicename}
+rm -r  arangodbconfig.zip
