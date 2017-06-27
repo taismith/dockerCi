@@ -1,5 +1,7 @@
 FROM arangodb:latest
 
+RUN apt-get install zip -y
+
 WORKDIR /build
 COPY build /build/ 
 RUN chmod +x /build/build
