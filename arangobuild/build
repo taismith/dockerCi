@@ -1,5 +1,5 @@
 #!/bin/bash
 
-zip -rq arangodbconfig.zip ./
+zip -rq arangodbconfig.zip /dockersrc
 foxx-manager --server.endpoint tcp://${domainname} --server.database {databasename} --server.authentication false upgrade arangodbconfig.zip /${servicename}
 rm -r  arangodbconfig.zip
