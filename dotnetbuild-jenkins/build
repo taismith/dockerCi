@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /var/jenkins_home/workspace/$WORKSPACE_NAME/src
+sh ./dockerBuildFile
