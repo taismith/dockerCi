@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#u - rancher url
+#a - rancher access
+#s - rancher secret
+
+#e - Endpoint
+#d - databasename
+#o - overwrite
+#p - password
+
+while getopts ":u:a:s:e:d:o:p:" q; do
+    case "${q}" in
+        u) u=${OPTARG} ;;
+        a) a=${OPTARG} ;;
+        s) s=${OPTARG} ;;
+        e) e=${OPTARG} ;;
+        d) d=${OPTARG} ;;
+        o) o=${OPTARG} ;;
+        p) p=${OPTARG} ;;
+        *) usage ;;
+    esac
+done
+
+export RANCHER_URL=${u}
+export RANCHER_ACCESS_KEY=${a}
+export RANCHER_SECRET_KEY=${s}
+
+
+rancher exec arangoexec /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e}
