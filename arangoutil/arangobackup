@@ -9,7 +9,6 @@
 #o - overwrite
 #p - password
 
-
 while getopts ":u:a:s:e:d:o:p:" q; do
     case "${q}" in
         u) u=${OPTARG} ;;
