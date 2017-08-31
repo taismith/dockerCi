@@ -1,0 +1,12 @@
+ #!/bin/bash
+
+VERSION=${1:-custom}
+
+# Build a new Image
+sudo docker build -t oliboard/arangodbutil:latest -t oliboard/arangodbutil:$VERSION .
+
+#docker login -u=oliboard -p=Burrito$99 hub.docker.com
+
+# Push Image to Docker.io
+sudo docker push oliboard/arangodbutil:$VERSION
+sudo docker push oliboard/arangodbutil:latest
