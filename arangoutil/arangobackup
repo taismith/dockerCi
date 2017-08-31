@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#u - rancher url
-#a - rancher access
-#s - rancher secret
+
+
+
 
 #e - Endpoint
 #d - databasename
@@ -23,13 +23,13 @@ while getopts ":u:a:s:e:d:o:p:" q; do
 done
 
 
-echo "u = ${u}"
-echo "a = ${a}"
-echo "s = ${s}"
-echo "e = ${e}"
-echo "d = ${d}"
-echo "o = ${o}"
-echo "p = ${p}"
+# echo "u = ${u}" #u - rancher url
+# echo "a = ${a}" #a - rancher access
+# echo "s = ${s}" #s - rancher secret
+# echo "e = ${e}"
+# echo "d = ${d}"
+# echo "o = ${o}"
+# echo "p = ${p}"
 
 # Update Rancher vars if set
 if [[ -n "${u}" && -n "${a}" && -n "${s}" ]]
@@ -49,11 +49,11 @@ fi
 if [[ -n "${p}" ]]
 then
     #rancher exec arangoexec
-    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o}
+    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections
 else
     #rancher exec arangoexec
-    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o}
+    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections
 fi
 
 timestamp="$(date +"%Y%m%d_%H%M%S")"
-tar -zcvf /internal/backup/${d}/$timestamp-backup.tar /internal/backup/${d}/temp
+tar -zcvf /internal/backup/${d}/${d}-$timestamp-data.tar /internal/backup/${d}/temp
