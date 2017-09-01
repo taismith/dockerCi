@@ -1,14 +1,5 @@
 #!/bin/bash
 
-
-
-
-
-#e - Endpoint
-#d - databasename
-#o - overwrite
-#p - password
-
 while getopts ":u:a:s:e:d:o:p:" q; do
     case "${q}" in
         u) u=${OPTARG} ;;
@@ -22,14 +13,13 @@ while getopts ":u:a:s:e:d:o:p:" q; do
     esac
 done
 
-
 # echo "u = ${u}" #u - rancher url
 # echo "a = ${a}" #a - rancher access
 # echo "s = ${s}" #s - rancher secret
-# echo "e = ${e}"
-# echo "d = ${d}"
-# echo "o = ${o}"
-# echo "p = ${p}"
+# echo "e = ${e}" #e - Endpoint
+# echo "d = ${d}" #d - databasename
+# echo "o = ${o}" #o - overwrite
+# echo "p = ${p}" #p - password
 
 # Update Rancher vars if set
 if [[ -n "${u}" && -n "${a}" && -n "${s}" ]]
@@ -39,20 +29,20 @@ then
     export RANCHER_SECRET_KEY=${s}
 fi
 
-
+# Set overrite to false unless set to 'true'
 if [ "${o}" != "true" ]
 then
   o='false'
 fi
 
+mkdir -p /internal/backup/${d}/temp
+
 # create dump of database
 if [[ -n "${p}" ]]
 then
-    #rancher exec arangoexec
-    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections
+    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
 else
-    #rancher exec arangoexec
-    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections
+    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
 fi
 
 timestamp="$(date +"%Y%m%d_%H%M%S")"

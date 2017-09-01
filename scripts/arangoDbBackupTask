@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#e - Endpoint
+#d - databasename
+#o - overwrite
+#p - password
+
+while getopts ":u:a:s:e:d:o:p:" q; do
+    case "${q}" in
+        u) u=${OPTARG} ;;
+        a) a=${OPTARG} ;;
+        s) s=${OPTARG} ;;
+        *) usage ;;
+    esac
+done
+
+
+# echo "u = ${u}" #u - rancher url
+# echo "a = ${a}" #a - rancher access
+# echo "s = ${s}" #s - rancher secret
