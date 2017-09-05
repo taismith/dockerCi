@@ -15,5 +15,5 @@ done
 # echo "d = ${d}" #d - database name
 # echo "s = ${s}" #s - service name
 
-echo 'db._createDatabase('+${d}+');' | arangosh --server.endpoint tcp://${c}:8529 --server.password ${p}
+echo 'db._createDatabase('${d}');' | arangosh --server.endpoint tcp://${c}:8529 --server.password ${p}
 foxx-manager --server.endpoint tcp://${c}:8529 --server.database ${d} --server.password ${p} install /internal/arangodbconfig.zip /${s}
