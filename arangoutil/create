@@ -15,8 +15,15 @@ done
 # echo "d = ${d}" #d - database name
 # echo "s = ${s}" #s - service name
 
-arangosh --server.endpoint tcp://${c}:8529 --server.password ${p} 
-db._createDatabase(${d})
+
+
+echo 'db._createDatabase("myDatabase");' | arangosh --server.endpoint tcp://${c}:8529 --server.password ${p}
+
+#echo 'db._createDatabase("myDatabase");' | arangosh
+#arangosh --server.endpoint tcp://${c}:8529 --server.password ${p} 
+#db._createDatabase(${d})
+
+
 #foxx-manager --server.endpoint tcp://${c}:8529 --server.database ${d} --server.password ${p} install /arango/arangodbconfig.zip /${s}
 
 # create service 
