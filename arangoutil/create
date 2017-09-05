@@ -17,5 +17,6 @@ done
 
 arangosh --server.endpoint tcp://${c}:8529 --server.password ${p} 
 db._createDatabase(${d})
+#foxx-manager --server.endpoint tcp://${c}:8529 --server.database ${d} --server.password ${p} install /arango/arangodbconfig.zip /${s}
 
 # create service 
