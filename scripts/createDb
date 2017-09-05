@@ -1,0 +1,34 @@
+#!/bin/bash
+
+while getopts ":i:c:p:d:s:" q; do
+    case "${q}" in
+        i) i=${OPTARG} ;;
+        c) c=${OPTARG} ;;
+        p) p=${OPTARG} ;;
+        d) d=${OPTARG} ;;
+        s) s=${OPTARG} ;;
+        *) usage ;;
+    esac
+done
+
+# echo "i = ${i}" #i - input folder
+
+# echo "c = ${c}" #c - database contaianer name
+# echo "p = ${p}" #p - password
+# echo "d = ${d}" #d - database name
+# echo "s = ${s}" #s - service name
+
+
+zip -rq arangodbconfig.zip ${i}
+
+docker run -v arangoshare:/arango --name helper busybox true
+docker cp arangodbconfig.zip helper:/arango
+docker rm helper
+
+rancher exec arangodbutil /scripts/create -c ${c} -p ${p} -d ${d} -s ${s}
+
+
+#arangosh --server.endpoint tcp://arangodb.local:8529 --server.password test1234
+#arangosh --server.endpoint tcp://{${e}:8529 --server.password ${p}
+
+#db._createDatabase(${d})

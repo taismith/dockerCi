@@ -1,11 +1,6 @@
 #!/bin/bash
 
-#e - Endpoint
-#d - databasename
-#o - overwrite
-#p - password
-
-while getopts ":u:a:s:e:d:o:p:" q; do
+while getopts ":u:a:s:" q; do
     case "${q}" in
         u) u=${OPTARG} ;;
         a) a=${OPTARG} ;;
@@ -14,7 +9,18 @@ while getopts ":u:a:s:e:d:o:p:" q; do
     esac
 done
 
-
 # echo "u = ${u}" #u - rancher url
 # echo "a = ${a}" #a - rancher access
 # echo "s = ${s}" #s - rancher secret
+
+# Update Rancher vars if set
+if [[ -n "${u}" && -n "${a}" && -n "${s}" ]]
+then
+    export RANCHER_URL=${u}
+    export RANCHER_ACCESS_KEY=${a}
+    export RANCHER_SECRET_KEY=${s}
+fi
+
+# Add commands to run backups 
+# EXAMPLE rancher/docker exec arangodbutil /scripts/arangobackup -d databasename -e tcp://endpoint:8529 -o true
+rancher exec arangodbutil /scripts/arangobackup -d databasename -e tcp://endpoint:8529 -o true

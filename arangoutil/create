@@ -1,0 +1,21 @@
+#!/bin/bash
+
+while getopts ":c:p:d:s:" q; do
+    case "${q}" in
+        c) c=${OPTARG} ;;
+        p) p=${OPTARG} ;;
+        d) d=${OPTARG} ;;
+        s) s=${OPTARG} ;;
+        *) usage ;;
+    esac
+done
+
+# echo "c = ${c}" #c - database contaianer name
+# echo "p = ${p}" #p - password
+# echo "d = ${d}" #d - database name
+# echo "s = ${s}" #s - service name
+
+arangosh --server.endpoint tcp://{${c}:8529 --server.password ${p} 
+db._createDatabase(${d})
+
+# create service 
