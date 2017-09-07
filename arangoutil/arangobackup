@@ -40,7 +40,7 @@ fi
 # Asign end point url if only a container id was sent in.
 if ([ -z "${e}" ])
 then
-    e='http://'$c':8529'
+    e='tcp://'$c':8529'
 fi
 
 backupdir=/internal/backup/${c}
