@@ -44,15 +44,14 @@ then
 fi
 
 backupdir=/internal/backup/${c}
-echo $backupdir
 mkdir -p $backupdir/temp
 
 # create dump of database
 if [[ -n "${p}" ]]
 then
-    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
+    /usr/bin/arangodump --server.password ${p} --server.database ${d} --output-directory $backupdir/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
 else
-    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory /internal/backup/${d}/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
+    /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory $backupdir/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
 fi
 
 timestamp="$(date +"%Y%m%d_%H%M%S")"
