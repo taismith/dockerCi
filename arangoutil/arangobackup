@@ -1,11 +1,12 @@
 #!/bin/bash
 
-while getopts ":u:a:s:e:d:o:p:" q; do
+while getopts ":u:a:s:e:c:d:o:p:" q; do
     case "${q}" in
         u) u=${OPTARG} ;;
         a) a=${OPTARG} ;;
         s) s=${OPTARG} ;;
         e) e=${OPTARG} ;;
+        c) c=${OPTARG} ;;
         d) d=${OPTARG} ;;
         o) o=${OPTARG} ;;
         p) p=${OPTARG} ;;
@@ -17,6 +18,7 @@ done
 # echo "a = ${a}" #a - rancher access
 # echo "s = ${s}" #s - rancher secret
 # echo "e = ${e}" #e - Endpoint
+# echo "c = ${c}" #c - ContainerName
 # echo "d = ${d}" #d - databasename
 # echo "o = ${o}" #o - overwrite
 # echo "p = ${p}" #p - password
@@ -35,7 +37,15 @@ then
   o='false'
 fi
 
-mkdir -p /internal/backup/${d}/temp
+# Asign end point url if only a container id was sent in.
+if ([ -n "${e}" ])
+then
+    e='http://'$c':8529'
+fi
+
+backupdir=/internal/backup/${c}
+echo $backupdir
+mkdir -p $backupdir/temp
 
 # create dump of database
 if [[ -n "${p}" ]]
@@ -46,4 +56,4 @@ else
 fi
 
 timestamp="$(date +"%Y%m%d_%H%M%S")"
-tar -zcvf /internal/backup/${d}/${d}-$timestamp-data.tar /internal/backup/${d}/temp
+tar -zcvf $backupdir/${d}-$timestamp-data.tar $backupdir/temp
