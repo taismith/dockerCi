@@ -55,4 +55,4 @@ else
 fi
 
 timestamp="$(date +"%Y%m%d_%H%M%S")"
-tar -zcvf $backupdir/${d}-$timestamp-data.tar $backupdir/temp
+tar -czvf $backupdir/${d}-$timestamp-data.tar $backupdir/temp
