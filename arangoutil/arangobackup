@@ -38,7 +38,7 @@ then
 fi
 
 # Asign end point url if only a container id was sent in.
-if ([ -n "${e}" ])
+if ([ -z "${e}" ])
 then
     e='http://'$c':8529'
 fi
