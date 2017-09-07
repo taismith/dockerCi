@@ -54,5 +54,6 @@ else
     /usr/bin/arangodump --server.authentication false --server.database ${d} --output-directory $backupdir/temp --server.endpoint ${e} --overwrite ${o} --include-system-collections true
 fi
 
+cd temp
 timestamp="$(date +"%Y%m%d_%H%M%S")"
-tar -czvf $backupdir/${d}-$timestamp-data.tar $backupdir/temp
+tar -czvf ../${d}-$timestamp-data.tgz ./
