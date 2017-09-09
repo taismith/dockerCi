@@ -24,3 +24,4 @@ fi
 # Add commands to run backups 
 # EXAMPLE rancher/docker exec arangodbutil /scripts/arangobackup -d databasename -e tcp://endpoint:8529 -o true
 rancher exec arangodbutil /scripts/arangobackup -d databasename -e tcp://endpoint:8529 -o true
+rancher exec arangodbutil /scripts/arangobackup -d databasename -c containerName -o true
