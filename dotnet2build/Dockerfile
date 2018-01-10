@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.0-sdk
+FROM microsoft/dotnet:2.0.3-sdk-2.1.2
 
 ENV WORKSPACE_NAME blank
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE true
